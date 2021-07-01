@@ -1,9 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout>
+  <data>
+      <import type="android.view.View" />
+      <variable
+          name="volume"
+          type="com.fineapps.books.models.Volume" />
+      <variable
+          name="volumeInfoViewModel"
+          type="com.fineapps.books.activities.volume.VolumeInformationViewModel" />
+  </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.volume.VolumeInformationActivity">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/book_image"
+        android:scaleType="fitXY"
+        android:id="@+id/volumeImage"
+        imageUrl="@{volume.volumeInfo.imageLinks.thumbnail}"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:gravity="center_vertical"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+        android:textColor="@color/purple_700"
+        android:text="@{volume.volumeInfo.title}"
+        android:background="@color/purple_opacity"
+        app:layout_constraintBottom_toTopOf="@id/volumeSubTitle"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:gravity="center_vertical"
+        android:id="@+id/volumeSubTitle"
+        android:textStyle="italic|bold"
+        android:background="@color/purple_opacity"
+        app:layout_constraintBottom_toBottomOf="@id/volumeImage"
+        android:text="@{volume.volumeInfo.subtitle}"
+        />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/volumeImage"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="5dp"
+                android:text="Authors"
+                android:id="@+id/authorsText"/>
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/authorsText"
+                android:orientation="horizontal"
+                android:id="@+id/authorsListViewScroll">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="15dp"
+                android:layout_marginHorizontal="3dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:id="@+id/authorsListView"
+                authorsList="@{volume.volumeInfo.authors}">
+            </LinearLayout>
+            </HorizontalScrollView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#e5e5e5"
+                app:layout_constraintTop_toBottomOf="@id/authorsListViewScroll"
+                android:id="@+id/v1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/v1"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="5dp"
+                android:text="Categories"
+                android:id="@+id/categoriesText"/>
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/categoriesText"
+                android:orientation="horizontal"
+                android:id="@+id/categoriesListViewScroll">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="15dp"
+                android:layout_marginHorizontal="3dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                categoryList="@{volume.volumeInfo.categories}"
+                android:id="@+id/categoriesListView">
+
+            </LinearLayout>
+            </HorizontalScrollView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#e5e5e5"
+                app:layout_constraintTop_toBottomOf="@id/categoriesListViewScroll"
+                android:id="@+id/v2"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/v2"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="5dp"
+                android:text="Description"
+                android:id="@+id/descriptionText"/>
+
+            <TextView
+                app:layout_constraintTop_toBottomOf="@id/descriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="3dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_marginHorizontal="3dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:text="@{volume.volumeInfo.description}"
+                android:id="@+id/volumeDescriptionText"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:elevation="100dp"
+        android:animateLayoutChanges="true"
+        android:id="@+id/loaderView"
+        android:clickable="true"
+        android:background="#E6000000">
+
+        <ProgressBar
+            android:layout_gravity="center"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/loaderImageView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

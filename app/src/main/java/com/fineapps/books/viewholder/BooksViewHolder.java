@@ -1,10 +1,12 @@
 package com.fineapps.books.viewholder;
 
+import android.content.Intent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fineapps.books.activities.volume.VolumeInformationActivity;
 import com.fineapps.books.databinding.BookItemBinding;
 import com.fineapps.books.models.ImageLink;
 import com.fineapps.books.models.Volume;
@@ -30,10 +32,14 @@ public class BooksViewHolder extends RecyclerView.ViewHolder {
         ImageLink imageLink=volumeInfo.getImageLinks();
         bookItemBinding.setImageLinks(imageLink);
 
-
-
-
-
+        bookItemBinding.mainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(bookItemBinding.getRoot().getContext(), VolumeInformationActivity.class);
+                intent.putExtra("id",volume.getId());
+                bookItemBinding.getRoot().getContext().startActivity(intent);
+            }
+        });
 
     }
 }
